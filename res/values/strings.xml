@@ -1,10 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="title_activity_settings">Settings</string>
     <string name="app_name">NineOneOne</string>
     <string name="get_location_button_text">Call for Help</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_sent">SentActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="sms">SMS</string>
+    <string name="sms_dialog_title">SMS</string>
+    <string name="sms_dialog_summary">Enter up to three phone numbers that will be sent an SMS message when the user presses the panic button, and optionally specify the short message service center (SMSC) address</string>
+    <string name="sms_key_1">sms1</string>
+    <string name="sms_number_1">SMS Number 1</string>
+    <string name="sms_interactive">Interactive SMS</string>
+    <string name="sms_interactive_key">sms_interactive</string>
+    <string name="sms_interactive_on_summary">Only one SMS messsage is sent to SMS Number 1 interactively</string>
+    <string name="sms_interactive_off_summary">SMS messages are sent silently in the background</string>
+    <string name="sms_key_2">sms2</string>
+    <string name="sms_number_2">SMS Number 2</string>
+    <string name="sms_key_3">sms3</string>
+    <string name="sms_number_3">SMS Number 3</string>
+    <string name="smsc">SMSC Address</string>
+    <string name="smsc_address">Short Message Service Center (SMSC) address</string>
+    <string name="smsc_key">smsc</string>
+    <string name="email">Email</string>
+    <string name="email_dialog_title">Email</string>
+    <string name="email_dialog_summary">Enter up to three email addresses that will be sent an email when the user presses the panic button and details about the GMail account to send from</string>
+    <string name="email_key_1">email1</string>
+    <string name="email_key_2">email2</string>
+    <string name="email_key_3">email3</string>
+    <string name="email_address_1">Email address 1</string>
+    <string name="email_address_2">Email address 2</string>
+    <string name="email_address_3">Email address 3</string>
+    <string name="gmail_account">GMail Account</string>
+    <string name="gmail_account_key">gmail_account</string>
+    <string name="gmail_password">GMail Password</string>
+    <string name="gmail_password_key">gmail_password</string>
+    <string name="email_subject">Email Subject</string>
+    <string name="email_subject_key">email_subject</string>
 
 </resources>

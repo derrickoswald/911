@@ -11,7 +11,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -19,16 +18,30 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="ch.ninecode.nine11.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name="ch.ninecode.nine11.SentReceiver" android:exported="true" android:enabled="true">
+
+        <receiver
+            android:name=".SentReceiver"
+            android:enabled="true"
+            android:exported="true" >
         </receiver>
-        <receiver android:name="ch.ninecode.nine11.DeliveredReceiver" android:exported="true" android:enabled="true">
+        <receiver
+            android:name=".DeliveredReceiver"
+            android:enabled="true"
+            android:exported="true" >
         </receiver>
+
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
     </application>
+
 </manifest>

@@ -7,9 +7,11 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.telephony.SmsManager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +33,7 @@ public class MainActivity extends Activity implements PositionChangeListener
 	protected void onCreate (Bundle savedInstanceState)
 	{
 		super.onCreate (savedInstanceState);
+		PreferenceManager.setDefaultValues (this, R.xml.preferences, false);
 		setContentView (R.layout.activity_main);
 		_Position = new Position (this);
 		_Sent = new SentReceiver ();
@@ -48,15 +51,20 @@ public class MainActivity extends Activity implements PositionChangeListener
 	@Override
 	public boolean onOptionsItemSelected (MenuItem item)
 	{
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
+		Intent intent;
+		boolean ret;
+		
 		int id = item.getItemId ();
 		if (id == R.id.action_settings)
 		{
-			return true;
+            intent = new Intent (this, SettingsActivity.class);
+            startActivity (intent);
+			ret = true;
 		}
-		return super.onOptionsItemSelected (item);
+		else
+			ret = super.onOptionsItemSelected (item);
+		
+		return (ret);
 	}
 
 	@Override
@@ -109,51 +117,83 @@ public class MainActivity extends Activity implements PositionChangeListener
 	
 	public void CallForHelp (View view)
 	{
-		String message = "LL = " + _Position.getLocation ().getLongitude () + "," + _Position.getLocation ().getLatitude ();
-		if (0.0 != _Position.getLocation ().getAccuracy ())
-			message += "\n±" + _Position.getLocation ().getAccuracy () + "m";
-		EditText text = (EditText)(findViewById (R.id.addressText));
-		String address = text.getText ().toString ();
-		if ("" != address)
-			message += "\n" + address;
-
-		sendMessage (message);
+		if (null != _Position.getLocation ())
+		{
+			String message = "" + _Position.getLocation ().getLongitude () + "°N," + _Position.getLocation ().getLatitude () + "°E";
+			if (0.0 != _Position.getLocation ().getAccuracy ())
+				message += " ±" + _Position.getLocation ().getAccuracy () + "m";
+			EditText text = (EditText)(findViewById (R.id.addressText));
+			String address = text.getText ().toString ();
+			sendMessage (address, message);
+		}
+		else
+			Toast.makeText (getApplicationContext (), "No position available, please try again later!", Toast.LENGTH_LONG).show ();
 	}
 	
-	public void sendMessage (String message)
+	public void sendMessage (String short_message, String long_message)
 	{
-		EditText text = (EditText)(findViewById (R.id.messageText));
-		text.setText (message);
-		
-		String phoneNo = "+41762719067";
-		String myphoneNo = "+41767003530";
-
-		if (true)
+		String full_message = short_message + " " + long_message;
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean interactive = sharedPref.getBoolean (getString (R.string.sms_interactive_key), false);
+		String[] phone_numbers =
 		{
-	        Intent sendIntent = new Intent (Intent.ACTION_VIEW, Uri.parse ("sms:" + phoneNo));
-	        sendIntent.putExtra ("sms_body", message); 
+			sharedPref.getString (getString (R.string.sms_key_1), ""),
+			sharedPref.getString (getString (R.string.sms_key_2), ""),
+			sharedPref.getString (getString (R.string.sms_key_3), "")
+		};
+		String smsc = sharedPref.getString (getString (R.string.smsc_key), "");
+		if ("".equals (smsc))
+			smsc = null;
+		
+		EditText text = (EditText)(findViewById (R.id.messageText));
+		text.setText (full_message);
+		
+		if (interactive)
+		{
+	        Intent sendIntent = new Intent (Intent.ACTION_VIEW, Uri.parse ("sms:" + phone_numbers[0]));
+	        sendIntent.putExtra ("sms_body", short_message); 
 	        startActivity (sendIntent);
 		}
 		else
 		{
 			Intent intent = new Intent (TAG_SENT);
 			intent.setComponent (new ComponentName ("ch.ninecode.nine11", "SentReceiver"));
-			PendingIntent pending_sent = PendingIntent.getBroadcast (getApplicationContext (), 0, intent, 0);
+			PendingIntent pending_sent = PendingIntent.getBroadcast (this, 0, intent, 0);
 			intent = new Intent (TAG_DELIVERED);
 			intent.setComponent (new ComponentName ("ch.ninecode.nine11", "DeliveredReceiver"));
-			PendingIntent pending_delivered= PendingIntent.getBroadcast (getApplicationContext (), 0, intent, 0);
+			PendingIntent pending_delivered = PendingIntent.getBroadcast (this, 0, intent, 0);
 	
-			try
-			{
-				SmsManager smsManager = SmsManager.getDefault ();
-				smsManager.sendTextMessage (phoneNo, myphoneNo, message, pending_sent, pending_delivered);
-			}
-			catch (Exception e)
-			{
-				Toast.makeText (getApplicationContext (), "SMS failed, please try again later!", Toast.LENGTH_LONG).show ();
-				e.printStackTrace ();
-			}
-
+			for (int i = 0; i < phone_numbers.length; i++)
+				if (!"".equals (phone_numbers[i]))
+					try
+					{
+						SmsManager smsManager = SmsManager.getDefault ();
+						smsManager.sendTextMessage (phone_numbers[i], smsc, short_message, pending_sent, pending_delivered);
+					}
+					catch (Exception e)
+					{
+						Toast.makeText (getApplicationContext (), "SMS to " + phone_numbers[i] + " failed. " + e.getMessage (), Toast.LENGTH_LONG).show ();
+						e.printStackTrace ();
+					}
 		}
+
+		String [] email_addresses =
+		{
+			sharedPref.getString (getString (R.string.email_key_1), ""),
+			sharedPref.getString (getString (R.string.email_key_2), ""),
+			sharedPref.getString (getString (R.string.email_key_3), "")
+		};
+		String user = sharedPref.getString (getString (R.string.gmail_account_key), "username@gmail.com");
+		String password = sharedPref.getString (getString (R.string.gmail_password_key), "secret");
+		String subject = sharedPref.getString (getString (R.string.email_subject_key), "PANIC BUTTON!");
+		String to = "";
+		for (int i = 0; i < email_addresses.length; i++)
+			if (!"".equals (email_addresses[i]))
+			{
+				if (!"".equals (to))
+					to += ",";
+				to += email_addresses[i];
+			}
+		new SendMail (this).execute (new SendMail.Details (subject, full_message, user, password, to));
 	}
 }
