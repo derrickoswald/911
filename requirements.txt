@@ -1,0 +1,25 @@
+ONE-TAP EMERGENCY LOCATION
+
+System
+Android smartphone, from version 2.1 up
+
+Requirements
+- User taps one button on his smartphone home screen .. see https://developer.android.com/guide/topics/appwidgets/index.html#lockscreen
+- Smartphone acquires current location
+- Location is sent to up to three predefined cellphone numbers or up to three predefined e-mail addresses
+- Apart from tapping that one button, no interaction is required
+- Languages: German, English, French
+- The user has to receive clear and simple feedback about whether the smartphone managed to send the location, or not.
+
+Acquiring the location
+It is of utmost importance that the location be found no matter what. Therefore, all possible methods of acquiring location have to be used until a location is found:
+- If GPS is disabled, enable it without user interaction and acquire lat/long
+- If there is no wlan/data service, it will not be possible to use Google's map services. In this case, simply send the lat/long from the GPS
+- If internet access is possible, acquire street address, and send the address plus link on Google Maps
+- If it is not possible to acquire the GPS location (person is in a building, or GPS is broken), try to use cellphone towers and/or wlan to acquire approximate location
+
+Sending the location
+- If sending SMS is not possible (no funds, or whatever), try to send the acquired location by email.
+
+Fallback
+- If everything fails within a predefined timespan, initiate a call to the first predefined cellphone number. If that fails, initiate a call to the second/third cellphone number

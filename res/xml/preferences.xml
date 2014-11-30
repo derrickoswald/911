@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceScreen
+        android:enabled="true"
+        android:key="@string/sms"
+        android:selectable="true"
+        android:summary="@string/sms_dialog_summary"
+        android:title="@string/sms_dialog_title" >
+        <SwitchPreference
+            android:defaultValue="false"
+            android:disableDependentsState="true"
+            android:enabled="true"
+            android:key="@string/sms_interactive_key"
+            android:summary="@string/action_settings"
+            android:summaryOff="@string/sms_interactive_off_summary"
+            android:summaryOn="@string/sms_interactive_on_summary"
+            android:title="@string/sms_interactive" />
+
+        <ch.ninecode.nine11.EditTextPreferenceWithValueSummary
+            android:defaultValue=""
+            android:dialogTitle="@string/sms_number_1"
+            android:enabled="true"
+            android:key="@string/sms_key_1"
+            android:title="@string/sms_number_1" />
+        <ch.ninecode.nine11.EditTextPreferenceWithValueSummary
+            android:defaultValue=""
+            android:dependency="@string/sms_interactive_key"
+            android:dialogTitle="@string/sms_number_2"
+            android:enabled="true"
+            android:key="@string/sms_key_2"
+            android:title="@string/sms_number_2" />
+        <ch.ninecode.nine11.EditTextPreferenceWithValueSummary
+            android:defaultValue=""
+            android:dependency="@string/sms_interactive_key"
+            android:dialogTitle="@string/sms_number_3"
+            android:enabled="true"
+            android:key="@string/sms_key_3"
+            android:title="@string/sms_number_3" />
+        <ch.ninecode.nine11.EditTextPreferenceWithValueSummary
+            android:dialogTitle="@string/smsc_address"
+            android:enabled="true"
+            android:key="@string/smsc_key"
+            android:title="@string/smsc" />
+    </PreferenceScreen>
+    <PreferenceScreen
+        android:enabled="true"
+        android:key="@string/email"
+        android:selectable="true"
+        android:summary="@string/email_dialog_summary"
+        android:title="@string/email_dialog_title" >
+        <ch.ninecode.nine11.EditTextPreferenceWithValueSummary
+            android:defaultValue=""
+            android:dialogTitle="@string/email_address_1"
+            android:enabled="true"
+            android:key="@string/email_key_1"
+            android:title="@string/email_address_1" />
+        <ch.ninecode.nine11.EditTextPreferenceWithValueSummary
+            android:defaultValue=""
+            android:dialogTitle="@string/email_address_2"
+            android:enabled="true"
+            android:key="@string/email_key_2"
+            android:title="@string/email_address_2" />
+        <ch.ninecode.nine11.EditTextPreferenceWithValueSummary
+            android:defaultValue=""
+            android:dialogTitle="@string/email_address_3"
+            android:enabled="true"
+            android:key="@string/email_key_3"
+            android:title="@string/email_address_3" />
+        <ch.ninecode.nine11.EditTextPreferenceWithValueSummary
+            android:defaultValue=""
+            android:dialogTitle="@string/gmail_account"
+            android:enabled="true"
+            android:key="@string/gmail_account_key"
+            android:title="@string/gmail_account" />
+        <ch.ninecode.nine11.EditTextPreferenceWithValueSummary
+            android:defaultValue=""
+            android:dialogTitle="@string/gmail_password"
+            android:enabled="true"
+            android:key="@string/gmail_password_key"
+            android:title="@string/gmail_password" />
+        <ch.ninecode.nine11.EditTextPreferenceWithValueSummary
+            android:defaultValue="PANIC BUTTON!"
+            android:dialogTitle="@string/email_subject"
+            android:enabled="true"
+            android:key="@string/email_subject_key"
+            android:title="@string/email_subject" />
+    </PreferenceScreen>
+
+</PreferenceScreen>
