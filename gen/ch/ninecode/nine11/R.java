@@ -36,8 +36,6 @@ public final class R {
     }
     public static final class menu {
         public static final int main=0x7f080000;
-        public static final int sent=0x7f080001;
-        public static final int settings=0x7f080002;
     }
     public static final class string {
         public static final int action_settings=0x7f060003;
@@ -107,7 +105,6 @@ public final class R {
         public static final int AppTheme=0x7f070001;
     }
     public static final class xml {
-        public static final int appwidget_info=0x7f040000;
-        public static final int preferences=0x7f040001;
+        public static final int preferences=0x7f040000;
     }
 }
