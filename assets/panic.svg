@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="512"
+   height="512"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="panic.svg">
+  <title
+     id="title3015">Panic Button</title>
+  <defs
+     id="defs4">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4038">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop4040" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop4042" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4021">
+      <stop
+         style="stop-color:#ff0000;stop-opacity:1;"
+         offset="0"
+         id="stop4023" />
+      <stop
+         style="stop-color:#ff0000;stop-opacity:0;"
+         offset="1"
+         id="stop4025" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4011">
+      <stop
+         style="stop-color:#666666;stop-opacity:1"
+         offset="0"
+         id="stop4013" />
+      <stop
+         style="stop-color:#000000;stop-opacity:1"
+         offset="1"
+         id="stop4015" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4003">
+      <stop
+         style="stop-color:#000000;stop-opacity:1"
+         offset="0"
+         id="stop4005" />
+      <stop
+         style="stop-color:#666666;stop-opacity:1"
+         offset="1"
+         id="stop4007" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4003"
+       id="linearGradient4009"
+       x1="240.00002"
+       y1="546.13336"
+       x2="240.00002"
+       y2="223.26614"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4011"
+       id="linearGradient4017"
+       x1="196.97346"
+       y1="567.64661"
+       x2="196.97346"
+       y2="201.92096"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4021"
+       id="radialGradient4027"
+       cx="402.06668"
+       cy="384.06668"
+       fx="402.06668"
+       fy="384.06668"
+       r="162.06667"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(2.0609931,-0.03702387,0.03061227,1.7040816,-438.34711,-255.52822)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4038"
+       id="linearGradient4044"
+       x1="245.81079"
+       y1="998.32446"
+       x2="250"
+       y2="632.36212"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.1050514,0,0,0.97814357,-31.633554,35.85747)" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4021"
+       id="radialGradient4052"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(2.0609931,-0.03702387,0.03061227,1.7040816,-438.34711,-255.52822)"
+       cx="402.06668"
+       cy="384.06668"
+       fx="402.06668"
+       fy="384.06668"
+       r="162.06667" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.1445312"
+     inkscape:cx="333.40619"
+     inkscape:cy="256"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:window-width="1607"
+     inkscape:window-height="1245"
+     inkscape:window-x="2625"
+     inkscape:window-y="34"
+     inkscape:window-maximized="0"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3204"
+       empspacing="10"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true"
+       originx="0px"
+       originy="2.7724378e-05px" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Panic Button</dc:title>
+        <dc:date>2014.12.2</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Derrick Oswald</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:language>en</dc:language>
+        <dc:description>Panic button asset for the one touch emergency location app.</dc:description>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-1.0273595e-7,-540.36217)">
+    <g
+       id="g3017">
+      <path
+         transform="matrix(1.5795969,0,0,1.5795969,-379.10328,189.69163)"
+         d="m 564.13335,384.06668 c 0,89.50695 -72.55972,162.06667 -162.06667,162.06667 -89.50695,0 -162.06666,-72.55972 -162.06666,-162.06667 0,-89.50695 72.55971,-162.06666 162.06666,-162.06666 89.50695,0 162.06667,72.55971 162.06667,162.06666 z"
+         sodipodi:ry="162.06667"
+         sodipodi:rx="162.06667"
+         sodipodi:cy="384.06668"
+         sodipodi:cx="402.06668"
+         id="path3229"
+         style="fill:url(#linearGradient4009);fill-opacity:1;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         sodipodi:type="arc"
+         style="fill:url(#linearGradient4017);fill-opacity:1;stroke:none"
+         id="path3231"
+         sodipodi:cx="402.06668"
+         sodipodi:cy="384.06668"
+         sodipodi:rx="162.06667"
+         sodipodi:ry="162.06667"
+         d="m 564.13335,384.06668 c 0,89.50695 -72.55972,162.06667 -162.06667,162.06667 -89.50695,0 -162.06666,-72.55972 -162.06666,-162.06667 0,-89.50695 72.55971,-162.06666 162.06666,-162.06666 89.50695,0 162.06667,72.55971 162.06667,162.06666 z"
+         transform="matrix(1.3944879,0,0,1.3944879,-304.67712,260.78581)" />
+      <path
+         transform="matrix(1.2402304,0,0,1.2402304,-242.65531,320.03097)"
+         d="m 564.13335,384.06668 c 0,89.50695 -72.55972,162.06667 -162.06667,162.06667 -89.50695,0 -162.06666,-72.55972 -162.06666,-162.06667 0,-89.50695 72.55971,-162.06666 162.06666,-162.06666 89.50695,0 162.06667,72.55971 162.06667,162.06666 z"
+         sodipodi:ry="162.06667"
+         sodipodi:rx="162.06667"
+         sodipodi:cy="384.06668"
+         sodipodi:cx="402.06668"
+         id="path3233"
+         style="fill:#000000;fill-opacity:1;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         sodipodi:type="arc"
+         style="fill:url(#radialGradient4052);fill-opacity:1;stroke:none"
+         id="path4019"
+         sodipodi:cx="402.06668"
+         sodipodi:cy="384.06668"
+         sodipodi:rx="162.06667"
+         sodipodi:ry="162.06667"
+         d="m 564.13335,384.06668 c 0,89.50695 -72.55972,162.06667 -162.06667,162.06667 -89.50695,0 -162.06666,-72.55972 -162.06666,-162.06667 0,-89.50695 72.55971,-162.06666 162.06666,-162.06666 89.50695,0 162.06667,72.55971 162.06667,162.06666 z"
+         transform="matrix(1.2093789,0,0,1.2093789,-230.25095,331.88)" />
+      <text
+         transform="scale(1.000002,0.99999801)"
+         sodipodi:linespacing="125%"
+         id="text4048"
+         y="840.36383"
+         x="69.999924"
+         style="font-size:140px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L Bold"
+         xml:space="preserve"><tspan
+           style="font-size:140px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L Bold"
+           y="840.36383"
+           x="69.999924"
+           id="tspan4050"
+           sodipodi:role="line">Panic</tspan></text>
+      <path
+         inkscape:connector-curvature="0"
+         id="path4035"
+         d="m 400.4369,714.2969 c 0,44.87529 -68.40583,81.2539 -152.78867,81.2539 -84.38285,0 -152.78865,-36.37861 -152.78865,-81.2539 0,-44.8753 68.4058,-81.25391 152.78865,-81.25391 84.38284,0 152.78867,36.37861 152.78867,81.25391 z"
+         style="fill:url(#linearGradient4044);fill-opacity:1;stroke:none" />
+    </g>
+  </g>
+</svg>
