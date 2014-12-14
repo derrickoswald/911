@@ -2,6 +2,8 @@ package ch.ninecode.nine11;
 
 import ch.ninecode.nine11.R;
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -12,11 +14,13 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RemoteViews;
 import android.widget.Toast;
 
 
@@ -38,6 +42,7 @@ public class MainActivity extends Activity implements PositionChangeListener
 		_Position = new Position (this);
 		_Sent = new SentReceiver ();
 		_Delivered = new DeliveredReceiver ();
+		begin ();
 	}
 
 	@Override
@@ -194,6 +199,29 @@ public class MainActivity extends Activity implements PositionChangeListener
 					to += ",";
 				to += email_addresses[i];
 			}
-		new SendMail (this).execute (new SendMail.Details (subject, full_message, user, password, to));
+		if (!"".equals (to))
+			(new SendMail (this)).execute (new SendMail.Details (subject, full_message, user, password, to));
+	}
+
+	protected void begin ()
+	{
+		RemoteViews views = new RemoteViews ("ch.ninecode.nine11", R.layout.panic_button);
+		Intent intent = new Intent (this, PanicActivity.class);
+		PendingIntent pending =
+		    PendingIntent.getActivity(
+		    this,
+		    0,
+		    intent,
+		    PendingIntent.FLAG_UPDATE_CURRENT
+		);
+		views.setOnClickPendingIntent (R.id.notification, pending);
+
+		NotificationCompat.Builder builder = new NotificationCompat.Builder (this);
+		builder.setContent (views);
+		builder.setSmallIcon (R.drawable.logo);
+
+	    Notification notification = builder.build ();
+	    notification.visibility = Notification.VISIBILITY_PUBLIC;
+	    ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).notify (1, notification);
 	}
 }

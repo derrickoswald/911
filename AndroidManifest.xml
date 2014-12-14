@@ -5,12 +5,13 @@
     android:versionName="1.4" >
 
     <uses-sdk
-        android:minSdkVersion="17"
+        android:minSdkVersion="21"
         android:targetSdkVersion="21" />
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
 
     <application
         android:allowBackup="true"
@@ -30,7 +31,10 @@
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
-
+        <activity
+            android:name=".PanicActivity"
+            android:label="@string/title_activity_panic" >
+        </activity>
         <receiver
             android:name=".SentReceiver"
             android:enabled="true"
@@ -41,20 +45,7 @@
             android:enabled="true"
             android:exported="false" >
         </receiver>
-        <receiver android:name=".AppWidgetProvider" >
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
 
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/appwidget_info" />
-        </receiver>
-
-        <activity
-            android:name=".PanicActivity"
-            android:label="@string/title_activity_panic" >
-        </activity>
     </application>
 
 </manifest>

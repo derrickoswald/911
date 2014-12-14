@@ -118,6 +118,16 @@
        fx="402.06668"
        fy="384.06668"
        r="162.06667" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4038"
+       id="linearGradient3018"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.1050514,0,0,0.97814357,-31.633554,35.85747)"
+       x1="245.81079"
+       y1="998.32446"
+       x2="250"
+       y2="632.36212" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -127,7 +137,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.1445312"
-     inkscape:cx="333.40619"
+     inkscape:cx="256"
      inkscape:cy="256"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -177,10 +187,10 @@
      id="layer1"
      transform="translate(-1.0273595e-7,-540.36217)">
     <g
-       id="g3017">
+       id="g3026">
       <path
          transform="matrix(1.5795969,0,0,1.5795969,-379.10328,189.69163)"
-         d="m 564.13335,384.06668 c 0,89.50695 -72.55972,162.06667 -162.06667,162.06667 -89.50695,0 -162.06666,-72.55972 -162.06666,-162.06667 0,-89.50695 72.55971,-162.06666 162.06666,-162.06666 89.50695,0 162.06667,72.55971 162.06667,162.06666 z"
+         d="m 564.13335,384.06668 a 162.06667,162.06667 0 1 1 -324.13333,0 162.06667,162.06667 0 1 1 324.13333,0 z"
          sodipodi:ry="162.06667"
          sodipodi:rx="162.06667"
          sodipodi:cy="384.06668"
@@ -196,11 +206,11 @@
          sodipodi:cy="384.06668"
          sodipodi:rx="162.06667"
          sodipodi:ry="162.06667"
-         d="m 564.13335,384.06668 c 0,89.50695 -72.55972,162.06667 -162.06667,162.06667 -89.50695,0 -162.06666,-72.55972 -162.06666,-162.06667 0,-89.50695 72.55971,-162.06666 162.06666,-162.06666 89.50695,0 162.06667,72.55971 162.06667,162.06666 z"
+         d="m 564.13335,384.06668 a 162.06667,162.06667 0 1 1 -324.13333,0 162.06667,162.06667 0 1 1 324.13333,0 z"
          transform="matrix(1.3944879,0,0,1.3944879,-304.67712,260.78581)" />
       <path
          transform="matrix(1.2402304,0,0,1.2402304,-242.65531,320.03097)"
-         d="m 564.13335,384.06668 c 0,89.50695 -72.55972,162.06667 -162.06667,162.06667 -89.50695,0 -162.06666,-72.55972 -162.06666,-162.06667 0,-89.50695 72.55971,-162.06666 162.06666,-162.06666 89.50695,0 162.06667,72.55971 162.06667,162.06666 z"
+         d="m 564.13335,384.06668 a 162.06667,162.06667 0 1 1 -324.13333,0 162.06667,162.06667 0 1 1 324.13333,0 z"
          sodipodi:ry="162.06667"
          sodipodi:rx="162.06667"
          sodipodi:cy="384.06668"
@@ -216,26 +226,26 @@
          sodipodi:cy="384.06668"
          sodipodi:rx="162.06667"
          sodipodi:ry="162.06667"
-         d="m 564.13335,384.06668 c 0,89.50695 -72.55972,162.06667 -162.06667,162.06667 -89.50695,0 -162.06666,-72.55972 -162.06666,-162.06667 0,-89.50695 72.55971,-162.06666 162.06666,-162.06666 89.50695,0 162.06667,72.55971 162.06667,162.06666 z"
+         d="m 564.13335,384.06668 a 162.06667,162.06667 0 1 1 -324.13333,0 162.06667,162.06667 0 1 1 324.13333,0 z"
          transform="matrix(1.2093789,0,0,1.2093789,-230.25095,331.88)" />
       <text
          transform="scale(1.000002,0.99999801)"
          sodipodi:linespacing="125%"
          id="text4048"
-         y="840.36383"
-         x="69.999924"
-         style="font-size:140px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L Bold"
+         y="837.39862"
+         x="81.387306"
+         style="font-size:131.6000061px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L Bold"
          xml:space="preserve"><tspan
-           style="font-size:140px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L Bold"
-           y="840.36383"
-           x="69.999924"
+           style="font-size:131.6000061px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L Bold"
+           y="837.39862"
+           x="81.387306"
            id="tspan4050"
            sodipodi:role="line">Panic</tspan></text>
       <path
          inkscape:connector-curvature="0"
          id="path4035"
          d="m 400.4369,714.2969 c 0,44.87529 -68.40583,81.2539 -152.78867,81.2539 -84.38285,0 -152.78865,-36.37861 -152.78865,-81.2539 0,-44.8753 68.4058,-81.25391 152.78865,-81.25391 84.38284,0 152.78867,36.37861 152.78867,81.25391 z"
-         style="fill:url(#linearGradient4044);fill-opacity:1;stroke:none" />
+         style="fill:url(#linearGradient3018);fill-opacity:1;stroke:none" />
     </g>
   </g>
 </svg>
