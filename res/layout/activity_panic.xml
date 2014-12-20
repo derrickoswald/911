@@ -7,6 +7,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:text="Begin panic action sequence..."
+        android:textAppearance="@style/android:TextAppearance.Material.Body1"/>
+
 
 </RelativeLayout>
