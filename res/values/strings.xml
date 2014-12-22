@@ -40,5 +40,7 @@
     <string name="email_subject_key">email_subject</string>
     <string name="panic_button_description">Red shiny button with the label Panic.</string>
     <string name="title_activity_panic">Panic Activity</string>
+    <string name="position_service_name">NineOneOne Position Service</string>
+    <string name="position_service_description">Background processing for location detection.</string>
 
 </resources>

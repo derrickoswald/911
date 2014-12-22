@@ -4,11 +4,44 @@
     android:layout_height="match_parent"
     tools:context="${relativePackage}.${activityClass}" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Begin panic action sequence..."
-        android:textAppearance="@style/android:TextAppearance.Material.Body1"/>
+    <ImageButton
+        android:id="@+id/panic_button"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:background="@null"
+        android:contentDescription="@string/panic_button_description"
+        android:onClick="Transition"
+        android:scaleType="fitXY"
+        android:src="@drawable/working" />
 
+    <RelativeLayout
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="false"
+        android:background="@null" >
+
+	    <TextView
+	        android:id="@+id/countdown"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+	        android:textColor="#ffffffff"
+	        android:textSize="50sp" />
+
+	</RelativeLayout>
+
+    <TextView
+        android:id="@+id/messageText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/panic_button"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp" />
 
 </RelativeLayout>

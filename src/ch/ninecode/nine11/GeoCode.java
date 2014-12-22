@@ -12,19 +12,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import ch.ninecode.nine11.R;
-import android.app.Activity;
 import android.os.AsyncTask;
-import android.widget.EditText;
 
 public class GeoCode extends AsyncTask<Double, Void, String>
 {
-	Activity _Activity;
+    public interface AddressResultListener
+    {
+        void onAddressResult (String address);
+    }
 
-	public GeoCode (Activity activity)
+    protected AddressResultListener _Listener;
+
+	public GeoCode (AddressResultListener listener)
 	{
-		_Activity = activity;
+	    _Listener = listener;
 	}
+
 	protected String doInBackground (Double... coordinates)
 	{
 		return (getAddress (coordinates[0], coordinates[1]));
@@ -32,10 +35,7 @@ public class GeoCode extends AsyncTask<Double, Void, String>
 
 	protected void onPostExecute (String result)
 	{
-		EditText text = (EditText)(_Activity.findViewById (R.id.addressText));
-		text.setText (result);
-		// ToDo: bad, bad, bad
-		((MainActivity)_Activity).postNotification (result, null);
+	    _Listener.onAddressResult (result);
 	}
 
 	public static String readFully (InputStream is)

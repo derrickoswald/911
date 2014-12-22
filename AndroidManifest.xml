@@ -35,6 +35,12 @@
             android:name=".PanicActivity"
             android:label="@string/title_activity_panic" >
         </activity>
+        <service
+            android:name="ch.ninecode.nine11.PositionService"
+            android:enabled="true"
+            android:exported="false"
+            android:label="@string/position_service_name"
+            android:description="@string/position_service_description"/>
         <receiver
             android:name=".SentReceiver"
             android:enabled="true"
