@@ -9,4 +9,7 @@
         <!-- API 14 theme customizations can go here. -->
     </style>
 
+    <style name="NotificationTitle" parent="@style/android:TextAppearance.Material.Notification.Title"/>
+    <style name="NotificationContent" parent="@style/android:TextAppearance.Material.Notification"/>
+    
 </resources>

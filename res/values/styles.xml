@@ -16,5 +16,8 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+    <style name="NotificationTitle" parent="@style/android:TextAppearance.Material.Notification.Title"/>
+    <style name="NotificationContent" parent="@style/android:TextAppearance.Material.Notification"/>
 
 </resources>

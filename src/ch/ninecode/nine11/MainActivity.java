@@ -41,7 +41,7 @@ public class MainActivity extends Activity implements PositionChangeListener
         _Position = new Position (this);
         _Sent = new SentReceiver ();
         _Delivered = new DeliveredReceiver ();
-        postNotification ("");
+        postNotification (null, null);
     }
 
     @Override
@@ -115,7 +115,9 @@ public class MainActivity extends Activity implements PositionChangeListener
     public void setText (Location location)
     {
         EditText text = (EditText) (findViewById (R.id.locationText));
-        text.setText (location.toString ());
+        String message = "" + location.getLongitude () + "," + location.getLatitude () + " (" + location.getProvider () + ")";
+        text.setText (message);
+        postNotification ("", message);
         new GeoCode (this).execute (location.getLongitude (), location.getLatitude ());
     }
 
@@ -202,15 +204,19 @@ public class MainActivity extends Activity implements PositionChangeListener
             (new SendMail (this)).execute (new SendMail.Details (subject, full_message, user, password, to));
     }
 
-    protected void postNotification (String message)
+    protected void postNotification (String address, String location)
     {
         RemoteViews views = new RemoteViews ("ch.ninecode.nine11", R.layout.panic_button);
-        views.setTextViewText (R.id.address_text, message);
+        if (null != address)
+            views.setTextViewText (R.id.address, address);
+        if (null != location)
+            views.setTextViewText (R.id.location, location);
         Intent intent = new Intent (this, PanicActivity.class);
         PendingIntent pending = PendingIntent.getActivity (this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setOnClickPendingIntent (R.id.notification, pending);
         views.setOnClickPendingIntent (R.id.panic_button, pending);
-        views.setOnClickPendingIntent (R.id.address_text, pending);
+        views.setOnClickPendingIntent (R.id.address, pending);
+        views.setOnClickPendingIntent (R.id.location, pending);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder (this);
         builder.setContent (views);

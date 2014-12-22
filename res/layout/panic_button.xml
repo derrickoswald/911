@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/notification"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@null"
-    android:padding="@dimen/widget_margin" >
+    android:padding="@dimen/widget_margin"
+    tools:context=".SettingsActivity" >
 
     <ImageButton
         android:id="@+id/panic_button"
@@ -16,7 +18,8 @@
         android:src="@drawable/panic" />
 
     <TextView
-        android:id="@+id/address_text"
+        android:id="@+id/address"
+        style="@style/android:TextAppearance.Material.Notification.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/panic_button"
@@ -24,8 +27,22 @@
         android:layout_toEndOf="@+id/panic_button"
         android:ellipsize="marquee"
         android:fadingEdge="horizontal"
+        android:paddingEnd="4dp"
         android:paddingStart="4dp"
-        android:singleLine="true"
-        android:textAppearance="@style/android:TextAppearance.StatusBar.EventContent"/>
-
+        android:singleLine="true" />
+    
+    <TextView
+        android:id="@+id/location"
+        style="@style/android:TextAppearance.Material.Notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/address"
+        android:layout_marginStart="4dp"
+        android:layout_toEndOf="@+id/panic_button"
+        android:ellipsize="marquee"
+        android:fadingEdge="horizontal"
+        android:paddingEnd="4dp"
+        android:paddingStart="4dp"
+        android:singleLine="true" />
+    
 </RelativeLayout>

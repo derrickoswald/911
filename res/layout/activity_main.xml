@@ -8,21 +8,24 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="ch.ninecode.nine11.MainActivity" >
 
-    <Button
-        android:id="@+id/HelpButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:id="@+id/panic_button"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
+        android:background="@null"
+        android:contentDescription="@string/panic_button_description"
         android:onClick="CallForHelp"
-        android:text="@string/get_location_button_text" />
-
+        android:scaleType="fitXY"
+        android:src="@drawable/panic" />
+    
     <EditText
         android:id="@+id/locationText"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/HelpButton"
+        android:layout_below="@+id/panic_button"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:ems="10"
@@ -30,7 +33,7 @@
 
     <EditText
         android:id="@+id/addressText"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/locationText"
         android:layout_centerHorizontal="true"
@@ -40,7 +43,7 @@
 
     <EditText
         android:id="@+id/messageText"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/addressText"
         android:layout_centerHorizontal="true"

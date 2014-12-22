@@ -35,7 +35,7 @@ public class GeoCode extends AsyncTask<Double, Void, String>
 		EditText text = (EditText)(_Activity.findViewById (R.id.addressText));
 		text.setText (result);
 		// ToDo: bad, bad, bad
-		((MainActivity)_Activity).postNotification (result);
+		((MainActivity)_Activity).postNotification (result, null);
 	}
 
 	public static String readFully (InputStream is)
