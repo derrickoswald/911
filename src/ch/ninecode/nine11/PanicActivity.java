@@ -174,6 +174,7 @@ public class PanicActivity extends Activity implements ServiceConnection, Locati
         {
             String latlong = _PositionService.getLatLong ();
             String address = _PositionService.getAddress ();
+
             if ("" != latlong)
                 sendMessage (address, latlong);
             else

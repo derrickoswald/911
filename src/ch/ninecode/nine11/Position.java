@@ -1,6 +1,7 @@
 package ch.ninecode.nine11;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.location.Location;
@@ -18,9 +19,11 @@ public class Position
 	
     // TODO: make these configurable via settings
     protected long _MinumumNetworkUpdateTime =  1000; // minimum time interval between network location updates, in milliseconds
-    protected float _MinimumNetworkUpdateDistance = 50; // minimum distance between network location updates, in meters
-    protected long _MinumumGPSUpdateTime = 0; // minimum time interval between GPS location updates, in milliseconds
-    protected float _MinimumGPSUpdateDistance = 1; // minimum distance between GPS location updates, in meters
+    protected float _MinimumNetworkUpdateDistance = 100; // minimum distance between network location updates, in meters
+    protected long _MinumumGPSUpdateTime = 1000; // minimum time interval between GPS location updates, in milliseconds
+    protected float _MinimumGPSUpdateDistance = 100; // minimum distance between GPS location updates, in meters
+    protected long _MinumumPassiveUpdateTime = 1000; // minimum time interval between passive location updates, in milliseconds
+    protected float _MinimumPassiveUpdateDistance = 100; // minimum distance between passive location updates, in meters
     protected int _AgeIntervalThreshold = 1000 * 60 * 2; // maximum time between significant readings, in milliseconds
     protected float _AccuracyThreshold = 200.0f; // maximum difference in estimated accuracy (difference in standard deviation if normally distributed), in meters
 
@@ -45,43 +48,40 @@ public class Position
     public void startListening ()
     {
         LocationManager manager;
+        List<String> providers;
         
         Log.i (_ClassName, "listening");
         manager = (LocationManager)_Context.getSystemService (Context.LOCATION_SERVICE);
-        
-        try
-        {
-            manager.requestLocationUpdates (LocationManager.NETWORK_PROVIDER, _MinumumNetworkUpdateTime, _MinimumNetworkUpdateDistance, this);
-        }
-        catch (IllegalArgumentException iae)
-        {
-            Log.i (_ClassName, "NETWORK_PROVIDER doesn't exist on this device", iae);
-        }
-        catch (SecurityException se)
-        {
-            Log.i (_ClassName, "permission is not present", se);
-        }
-        catch (RuntimeException rte)
-        {
-            Log.i (_ClassName, "calling thread has no Looper", rte);
-        }
-        
-        try
-        {
-            manager.requestLocationUpdates (LocationManager.GPS_PROVIDER, _MinumumGPSUpdateTime, _MinimumGPSUpdateDistance, this);
-        }
-        catch (IllegalArgumentException iae)
-        {
-            Log.i (_ClassName, "NETWORK_PROVIDER doesn't exist on this device", iae);
-        }
-        catch (SecurityException se)
-        {
-            Log.i (_ClassName, "permission is not present", se);
-        }
-        catch (RuntimeException rte)
-        {
-            Log.i (_ClassName, "calling thread has no Looper", rte);
-        }
+        providers = manager.getProviders (false);
+        for (String provider:providers)
+            try
+            {
+                if (manager.isProviderEnabled (provider))
+                    switch (provider)
+                    {
+                        case LocationManager.NETWORK_PROVIDER:
+                            manager.requestLocationUpdates (provider, _MinumumNetworkUpdateTime, _MinimumNetworkUpdateDistance, this);
+                            break;
+                        case LocationManager.GPS_PROVIDER:
+                            manager.requestLocationUpdates (provider, _MinumumGPSUpdateTime, _MinimumGPSUpdateDistance, this);
+                            break;
+                        case LocationManager.PASSIVE_PROVIDER:
+                            manager.requestLocationUpdates (provider, _MinumumPassiveUpdateTime, _MinimumPassiveUpdateDistance, this);
+                            break;
+                        default:
+                            Log.i (_ClassName, "location provider '" + provider + "' is not supported"); 
+                    }
+                else
+                    Log.i (_ClassName, "location provider '" + provider + "' is not enabled");
+            }
+            catch (SecurityException se)
+            {
+                Log.i (_ClassName, "permission is not present", se);
+            }
+            catch (RuntimeException rte)
+            {
+                Log.i (_ClassName, "calling thread has no Looper", rte);
+            }
     }
     
     public void stopListening ()
@@ -223,7 +223,7 @@ public class Position
                     }
                     catch (Exception e)
                     {
-                        Log.e ("ch.ninecode.portalviewer.Origin", "OriginChangeListener threw an exception.", e);
+                        Log.e (_ClassName, "PositionChangeListener threw an exception", e);
                     }
             }
 

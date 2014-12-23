@@ -1,7 +1,7 @@
 package ch.ninecode.nine11;
 
 import java.util.ArrayList;
-
+import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -9,6 +9,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
@@ -113,11 +114,13 @@ public class PositionService extends Service implements PositionChangeListener, 
         lon = location.getLongitude ();
         lat = location.getLatitude ();
         _LatLong = "" + lon + "," + lat + " (" + location.getProvider () + ")";
-        _Address = "";
+        _Address = "https://maps.google.com/maps?q=" + lat + "," + lon;
+
         new GeoCode (this).execute (lon, lat);
         postUpdate ();
     }
     
+    @TargetApi (Build.VERSION_CODES.LOLLIPOP)
     public void postUpdate ()
     {
         String address;
@@ -141,9 +144,10 @@ public class PositionService extends Service implements PositionChangeListener, 
         NotificationCompat.Builder builder = new NotificationCompat.Builder (this);
         builder.setContent (views);
         builder.setSmallIcon (R.drawable.logo);
+        if (Build.VERSION.SDK_INT >= 21)
+            builder.setVisibility (Notification.VISIBILITY_PUBLIC);
 
         Notification notification = builder.build ();
-        notification.visibility = Notification.VISIBILITY_PUBLIC;
         ((NotificationManager) getSystemService (NOTIFICATION_SERVICE)).notify (1, notification);
 
         synchronized (_Listeners)
