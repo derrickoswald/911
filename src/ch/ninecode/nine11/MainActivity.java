@@ -16,20 +16,18 @@ import android.widget.EditText;
 
 public class MainActivity extends Activity implements ServiceConnection, LocationChangeListener
 {
+    boolean _Started;
     PositionService _PositionService;
 
     @Override
     protected void onCreate (Bundle savedInstanceState)
     {
         super.onCreate (savedInstanceState);
+
+        _Started = false;
+        _PositionService = null;
         PreferenceManager.setDefaultValues (this, R.xml.preferences, false);
         setContentView (R.layout.activity_main);
-    }
-
-    @Override
-    protected void onStart ()
-    {
-        super.onStart ();
 
         // bind to PositionService
         Intent intent = new Intent (this, PositionService.class);
@@ -37,18 +35,38 @@ public class MainActivity extends Activity implements ServiceConnection, Locatio
     }
 
     @Override
-    protected void onStop ()
+    protected void onDestroy ()
     {
-        super.onStop ();
-        
+        super.onDestroy ();
+
         // unbind from PositionService
         unbindService (this);
     }
 
     @Override
+    protected void onStart ()
+    {
+        super.onStart ();
+
+        if (null != _PositionService)
+            _PositionService.addPositionChangeListener (this);
+        _Started = true;
+    }
+
+    @Override
+    protected void onStop ()
+    {
+        super.onStop ();
+
+        _Started = false;
+        if (null != _PositionService)
+            _PositionService.removePositionChangeListener (this);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu (Menu menu)
     {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // inflate the menu; this adds items to the action bar if it is present
         getMenuInflater ().inflate (R.menu.main, menu);
         return (true);
     }
@@ -72,14 +90,6 @@ public class MainActivity extends Activity implements ServiceConnection, Locatio
         return (ret);
     }
 
-    public void CallForHelp (View view)
-    {
-        Intent intent;
-
-        intent = new Intent (this, PanicActivity.class);
-        startActivity (intent);
-    }
-
     //
     // ServiceConnection interface
     //
@@ -87,14 +97,15 @@ public class MainActivity extends Activity implements ServiceConnection, Locatio
     @Override
     public void onServiceConnected (ComponentName name, IBinder service)
     {
-        PositionService.PositionBinder binder = (PositionService.PositionBinder)service;
-        _PositionService = binder.getService ();
-        _PositionService.addPositionChangeListener (MainActivity.this);
+        _PositionService = ((PositionService.PositionBinder)service).getService ();
+        if (_Started)
+            _PositionService.addPositionChangeListener (this);
     }
 
     @Override
     public void onServiceDisconnected (ComponentName name)
     {
+        _PositionService.removePositionChangeListener (this);
         _PositionService = null;
     }
 
@@ -103,7 +114,7 @@ public class MainActivity extends Activity implements ServiceConnection, Locatio
     //
 
     /**
-     * Do the needful when a position change happens. 
+     * Do the needful when a position change happens.
      */
     @Override
     public void onLocationChange (String location, String address)
@@ -114,5 +125,16 @@ public class MainActivity extends Activity implements ServiceConnection, Locatio
         text.setText (location);
         text = (EditText) (findViewById (R.id.addressText));
         text.setText (address);
+    }
+
+    //
+    // implementation
+    //
+    public void CallForHelp (View view)
+    {
+        Intent intent;
+
+        intent = new Intent (this, PanicActivity.class);
+        startActivity (intent);
     }
 }

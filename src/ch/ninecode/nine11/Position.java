@@ -15,7 +15,7 @@ public class Position
     implements
         LocationListener
 {
-	static String _ClassName = "ch.ninecode.nineoneone.Position";
+	static String _ClassName = "ch.ninecode.nine11.Position";
 	
     // TODO: make these configurable via settings
     protected long _MinumumNetworkUpdateTime =  1000; // minimum time interval between network location updates, in milliseconds

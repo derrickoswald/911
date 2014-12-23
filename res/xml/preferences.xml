@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-
     <PreferenceScreen
+        android:enabled="true"
+        android:key="@string/general"
+        android:selectable="true"
+        android:summary="@string/general_summary"
+        android:title="@string/general_title" >
+        <ListPreference
+            android:defaultValue="10"
+            android:entries="@array/panic_delay_list_elements"
+            android:entryValues="@array/panic_delay_list_elements"
+            android:key="@string/panic_delay_key"
+            android:summary="@string/panic_delay_summary"
+            android:title="@string/panic_delay_title" />
+	</PreferenceScreen>
+	<PreferenceScreen
         android:enabled="true"
         android:key="@string/sms"
         android:selectable="true"

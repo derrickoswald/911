@@ -42,5 +42,18 @@
     <string name="title_activity_panic">Panic Activity</string>
     <string name="position_service_name">NineOneOne Position Service</string>
     <string name="position_service_description">Background processing for location detection.</string>
+    <string name="panic_delay_key">panic_delay</string>
+    <string name="panic_delay_title">Panic Delay</string>
+    <string name="panic_delay_message">Delay before panic messages</string>
+    <string name="panic_delay_summary">The number of seconds to wait to reduce false positive triggers (the oops! undo time).</string>
+    <string-array name="panic_delay_list_elements">
+        <item >0</item>
+        <item >5</item>
+        <item >10</item>
+        <item >15</item>
+    </string-array>
+    <string name="general">general</string>
+    <string name="general_title">General</string>
+    <string name="general_summary">Global settings for the entire application</string>
 
 </resources>

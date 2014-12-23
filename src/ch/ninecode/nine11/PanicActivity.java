@@ -1,7 +1,6 @@
 package ch.ninecode.nine11;
 
 import java.util.Timer;
-import java.util.TimerTask;
 
 import android.app.Activity;
 import android.app.NotificationManager;
@@ -18,6 +17,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -25,29 +25,31 @@ import android.widget.Toast;
 
 public class PanicActivity extends Activity implements ServiceConnection, LocationChangeListener
 {
+    static String _ClassName = "ch.ninecode.nine11.PanicActivity";
+
     static String TAG_SENT = "SMS_SENT";
     static String TAG_DELIVERED = "SMS_DELIVERED";
 
     BroadcastReceiver _Sent;
     BroadcastReceiver _Delivered;
 
-    PositionService _PositionService;
-    Timer _Timer;
-    int _Color = 0xffff0000;
+    protected boolean _Started;
+    protected PositionService _PositionService;
+    protected Timer _Timer;
+    protected CountdownTask _Task;
+    protected int _Color = 0xffff0000;
 
     @Override
     protected void onCreate (Bundle savedInstanceState)
     {
         super.onCreate (savedInstanceState);
+        Log.i (_ClassName, "onCreate");
+
+        _Started = false;
+        PreferenceManager.setDefaultValues (this, R.xml.preferences, false);
         setContentView (R.layout.activity_panic);
         _Sent = new SentReceiver ();
         _Delivered = new DeliveredReceiver ();
-    }
-
-    @Override
-    protected void onStart ()
-    {
-        super.onStart ();
 
         // bind to PositionService
         Intent intent = new Intent (this, PositionService.class);
@@ -55,18 +57,67 @@ public class PanicActivity extends Activity implements ServiceConnection, Locati
     }
 
     @Override
-    protected void onStop ()
+    protected void onDestroy ()
     {
-        super.onStop ();
+        super.onDestroy ();
+        Log.i (_ClassName, "onDestroy");
 
         // unbind from PositionService
         unbindService (this);
     }
 
     @Override
+    protected void onStart ()
+    {
+        super.onStart ();
+        Log.i (_ClassName, "onStart");
+
+        if (null != _PositionService)
+            _PositionService.addPositionChangeListener (this);
+        _Started = true;
+
+        _Timer = new Timer ();
+        _Task = new CountdownTask (this, getDelay (), new CountdownTask.Callback () { @Override
+        public void execute () { CallForHelp (); } });
+    }
+
+    @Override
+    protected void onRestoreInstanceState (Bundle savedInstanceState)
+    {
+        super.onRestoreInstanceState (savedInstanceState);
+
+        _Task.setCount (savedInstanceState.getInt ("countdown"));
+    }
+
+    @Override
+    protected void onSaveInstanceState (Bundle outState)
+    {
+        super.onSaveInstanceState (outState);
+
+        outState.putInt ("countdown", _Task.getCount ());
+    }
+
+    @Override
+    protected void onStop ()
+    {
+        super.onStop ();
+        Log.i (_ClassName, "onStop");
+
+        _Started = false;
+        if (null != _PositionService)
+            _PositionService.removePositionChangeListener (this);
+
+        _Timer.cancel ();
+        _Timer.purge ();
+        _Timer = null;
+        _Task = null;
+    }
+
+    @Override
     protected void onResume ()
     {
         super.onResume ();
+        Log.i (_ClassName, "onResume");
 
         registerReceiver (_Sent, new IntentFilter (TAG_SENT));
         registerReceiver (_Delivered, new IntentFilter (TAG_DELIVERED));
@@ -75,12 +126,18 @@ public class PanicActivity extends Activity implements ServiceConnection, Locati
         // get an instance of the NotificationManager service
         NotificationManager manager = (NotificationManager) (getSystemService (NOTIFICATION_SERVICE));
         manager.cancel (id);
+
+        _Timer.schedule (_Task, 25, 1000);
     }
 
     @Override
     protected void onPause ()
     {
         super.onPause ();
+        Log.i (_ClassName, "onPause");
+
+        _Task.cancel ();
+
         unregisterReceiver (_Sent);
         unregisterReceiver (_Delivered);
     }
@@ -93,16 +150,14 @@ public class PanicActivity extends Activity implements ServiceConnection, Locati
     public void onServiceConnected (ComponentName name, IBinder service)
     {
         _PositionService = ((PositionService.PositionBinder)service).getService ();
-        _PositionService.addPositionChangeListener (this);
-
-        _Timer = new Timer ();
-        MyTimerTask task = new MyTimerTask (6);
-        _Timer.schedule (task, 25, 1000);
+        if (_Started)
+            _PositionService.addPositionChangeListener (this);
     }
 
     @Override
     public void onServiceDisconnected (ComponentName name)
     {
+        _PositionService.removePositionChangeListener (this);
         _PositionService = null;
     }
 
@@ -111,7 +166,7 @@ public class PanicActivity extends Activity implements ServiceConnection, Locati
     //
 
     /**
-     * Do the needful when a position change happens. 
+     * Do the needful when a position change happens.
      */
     @Override
     public void onLocationChange (String location, String address)
@@ -123,42 +178,9 @@ public class PanicActivity extends Activity implements ServiceConnection, Locati
         text.setTextColor (_Color);
     }
 
-    class MyTimerTask extends TimerTask
-    {
-        protected int _Count;
-        public MyTimerTask (int count)
-        {
-            _Count = count;
-        }
-        public void run ()
-        {
-            _Count--;
-            runOnUiThread(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    TextView text = (TextView) (findViewById (R.id.countdown));
-                    text.setVisibility (android.view.View.VISIBLE);
-                    text.setText (Integer.toString (_Count));
-                }
-            });
-            if (0 == _Count)
-            {
-                _Timer.cancel ();
-                runOnUiThread(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        TextView text = (TextView) (findViewById (R.id.countdown));
-                        text.setVisibility (android.view.View.INVISIBLE);
-                        CallForHelp ();
-                    }
-                });
-            }
-        }
-    };
+    //
+    // implementation
+    //
 
     public void Transition (View view)
     {
@@ -166,6 +188,27 @@ public class PanicActivity extends Activity implements ServiceConnection, Locati
         TextView text = (TextView) (findViewById (R.id.countdown));
         text.setVisibility (android.view.View.INVISIBLE);
         finish ();
+    }
+
+    // <rant>I can't believe you have to jump through these hoops because SharedPreferences doesn't have a getInt that works on strings.</rant>
+    public int getDelay ()
+    {
+        SharedPreferences preferences;
+        String value;
+        int ret;
+
+        preferences = PreferenceManager.getDefaultSharedPreferences (this);
+        value = preferences.getString (getString (R.string.panic_delay_key), "10");
+        try
+        {
+            ret = Integer.parseInt (value);
+        }
+        catch (NumberFormatException ex)
+        {
+            ret = 10;
+        }
+
+        return (ret);
     }
 
     public void CallForHelp ()
