@@ -15,29 +15,32 @@ public class SendMail extends AsyncTask<SendMail.Details, Void, Void>
 		public String _Subject;
 		public String _Message;
 		public String _Sender;
+		public String _Host;
 		public String _Password;
 		public String _Recipient;
-		public Details (String subject, String message, String sender, String password, String recipient)
+		public Details (String subject, String message, String host, String sender, String password, String recipient)
 		{
 			_Subject = subject;
 			_Message = message;
+            _Host = host;
 			_Sender = sender;
 			_Password = password;
 			_Recipient = recipient;
 		}
 	}
-	
-	
+
+
 	public SendMail (Activity activity)
 	{
 		_Activity = activity;
 	}
 
-	protected Void doInBackground (Details... details)
+	@Override
+    protected Void doInBackground (Details... details)
 	{
 		try
 		{
-			GMailSender sender = new GMailSender (details[0]._Sender, details[0]._Password);
+			GMailSender sender = new GMailSender (details[0]._Host, details[0]._Sender, details[0]._Password);
 			sender.sendMail (details[0]._Subject, details[0]._Message, details[0]._Sender, details[0]._Recipient);
 		}
 		catch (Exception e)

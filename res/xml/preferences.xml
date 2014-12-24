@@ -29,7 +29,6 @@
             android:summaryOff="@string/sms_interactive_off_summary"
             android:summaryOn="@string/sms_interactive_on_summary"
             android:title="@string/sms_interactive" />
-
         <ch.ninecode.nine11.EditTextPreferenceWithValueSummary
             android:defaultValue=""
             android:dialogTitle="@string/sms_number_1"
@@ -80,6 +79,12 @@
             android:enabled="true"
             android:key="@string/email_key_3"
             android:title="@string/email_address_3" />
+        <ch.ninecode.nine11.EditTextPreferenceWithValueSummary
+            android:defaultValue="@string/mailhost_default"
+            android:dialogTitle="@string/mailhost_title"
+            android:enabled="true"
+            android:key="@string/mailhost_key"
+            android:title="@string/mailhost_title" />
         <ch.ninecode.nine11.EditTextPreferenceWithValueSummary
             android:defaultValue=""
             android:dialogTitle="@string/gmail_account"

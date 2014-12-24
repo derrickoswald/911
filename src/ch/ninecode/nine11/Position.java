@@ -16,7 +16,11 @@ public class Position
         LocationListener
 {
 	static String _ClassName = "ch.ninecode.nine11.Position";
-	
+
+	// to emulate a location:
+	// telnet localhost 5554
+	// geo fix 7.486378 46.929994
+
     // TODO: make these configurable via settings
     protected long _MinumumNetworkUpdateTime =  1000; // minimum time interval between network location updates, in milliseconds
     protected float _MinimumNetworkUpdateDistance = 100; // minimum distance between network location updates, in meters
@@ -39,17 +43,17 @@ public class Position
         _Current = null;
         _Listeners = new ArrayList<PositionChangeListener> ();
     }
-    
+
     public Location getLocation ()
     {
         return (_Current);
     }
-    
+
     public void startListening ()
     {
         LocationManager manager;
         List<String> providers;
-        
+
         Log.i (_ClassName, "listening");
         manager = (LocationManager)_Context.getSystemService (Context.LOCATION_SERVICE);
         providers = manager.getProviders (false);
@@ -69,7 +73,7 @@ public class Position
                             manager.requestLocationUpdates (provider, _MinumumPassiveUpdateTime, _MinimumPassiveUpdateDistance, this);
                             break;
                         default:
-                            Log.i (_ClassName, "location provider '" + provider + "' is not supported"); 
+                            Log.i (_ClassName, "location provider '" + provider + "' is not supported");
                     }
                 else
                     Log.i (_ClassName, "location provider '" + provider + "' is not enabled");
@@ -83,11 +87,11 @@ public class Position
                 Log.i (_ClassName, "calling thread has no Looper", rte);
             }
     }
-    
+
     public void stopListening ()
     {
         LocationManager manager;
-        
+
         Log.i (_ClassName, "not listening");
         manager = (LocationManager)_Context.getSystemService (Context.LOCATION_SERVICE);
         manager.removeUpdates (this);
@@ -96,7 +100,7 @@ public class Position
     public void addPositionChangeListener (PositionChangeListener listener)
     {
         boolean listening;
-        
+
         synchronized (_Listeners)
         {
             listening = 0 != _Listeners.size ();
@@ -123,7 +127,7 @@ public class Position
     /**
      * Determines whether one Location reading is better than the current
      * Location fix
-     * 
+     *
      * @param location
      *            The new Location that you want to evaluate
      * @param currentBestLocation
@@ -141,21 +145,21 @@ public class Position
         boolean more_accurate;
         boolean much_less_accurate;
         boolean ret;
-        
+
         ret = false;
-        
+
         if (null == currentBestLocation)
             // a new location is always better than no location
             ret = true;
         else
         {
-    
+
             // check whether the new location fix is newer or older
             time_delta  = location.getTime () - currentBestLocation.getTime ();
             much_newer = time_delta > _AgeIntervalThreshold;
             much_older = time_delta < -_AgeIntervalThreshold;
             newer = time_delta > 0;
-    
+
             if (much_newer)
                 // after so much time the user has likely moved
                 ret = true;
@@ -167,7 +171,7 @@ public class Position
                     less_accurate = accuracy_delta > 0.0f;
                     more_accurate = accuracy_delta < 0.0f;
                     much_less_accurate = accuracy_delta > _AccuracyThreshold;
-            
+
                     if (more_accurate)
                         // location is more accurate
                         ret = true;
@@ -183,14 +187,14 @@ public class Position
                 }
                 // else the new location is much older, hence it must be worse
         }
-        
+
         return (ret);
     }
 
     protected boolean isSameProvider (String provider1, String provider2)
     {
         boolean ret;
-        
+
         ret = false;
 
         if (null == provider1)

@@ -281,6 +281,7 @@ public class PanicActivity extends Activity implements ServiceConnection, Locati
             sharedPref.getString (getString (R.string.email_key_2), ""),
             sharedPref.getString (getString (R.string.email_key_3), "")
         };
+        String host = sharedPref.getString (getString (R.string.mailhost_key), "smtp.gmail.com");
         String user = sharedPref.getString (getString (R.string.gmail_account_key), "username@gmail.com");
         String password = sharedPref.getString (getString (R.string.gmail_password_key), "secret");
         String subject = sharedPref.getString (getString (R.string.email_subject_key), "PANIC BUTTON!");
@@ -293,7 +294,7 @@ public class PanicActivity extends Activity implements ServiceConnection, Locati
                 to += email_addresses[i];
             }
         if (!"".equals (to))
-            (new SendMail (this)).execute (new SendMail.Details (subject, full_message, user, password, to));
+            (new SendMail (this)).execute (new SendMail.Details (subject, full_message, host, user, password, to));
 
         ImageButton button = (ImageButton) (findViewById (R.id.panic_button));
         button.setImageResource (R.drawable.dontpanic);

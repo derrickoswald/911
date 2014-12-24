@@ -55,5 +55,8 @@
     <string name="general">general</string>
     <string name="general_title">General</string>
     <string name="general_summary">Global settings for the entire application</string>
+    <string name="mailhost_key">mailhost</string>
+    <string name="mailhost_title">Mail Host (SMTP server)</string>
+    <string name="mailhost_default">smtp.gmail.com</string>
 
 </resources>
