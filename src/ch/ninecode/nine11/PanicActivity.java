@@ -30,14 +30,13 @@ public class PanicActivity extends Activity implements ServiceConnection, Locati
     static String TAG_SENT = "SMS_SENT";
     static String TAG_DELIVERED = "SMS_DELIVERED";
 
-    BroadcastReceiver _Sent;
-    BroadcastReceiver _Delivered;
-
     protected boolean _Started;
+    protected boolean _Done;
     protected PositionService _PositionService;
     protected Timer _Timer;
     protected CountdownTask _Task;
-    protected int _Color = 0xffff0000;
+    protected BroadcastReceiver _Sent;
+    protected BroadcastReceiver _Delivered;
 
     @Override
     protected void onCreate (Bundle savedInstanceState)
@@ -46,14 +45,17 @@ public class PanicActivity extends Activity implements ServiceConnection, Locati
         Log.i (_ClassName, "onCreate");
 
         _Started = false;
+        _Done = false;
+        _PositionService = null;
+        _Timer = null;
+        _Task = null;
         PreferenceManager.setDefaultValues (this, R.xml.preferences, false);
         setContentView (R.layout.activity_panic);
         _Sent = new SentReceiver ();
         _Delivered = new DeliveredReceiver ();
 
         // bind to PositionService
-        Intent intent = new Intent (this, PositionService.class);
-        bindService (intent, this, Context.BIND_AUTO_CREATE);
+        bindService (new Intent (this, PositionService.class), this, Context.BIND_AUTO_CREATE);
     }
 
     @Override
@@ -77,8 +79,7 @@ public class PanicActivity extends Activity implements ServiceConnection, Locati
         _Started = true;
 
         _Timer = new Timer ();
-        _Task = new CountdownTask (this, getDelay (), new CountdownTask.Callback () { @Override
-        public void execute () { CallForHelp (); } });
+        _Task = new CountdownTask (this, getDelay (), new CountdownTask.Callback () { public void execute () { CallForHelp (); } });
     }
 
     @Override
@@ -87,6 +88,7 @@ public class PanicActivity extends Activity implements ServiceConnection, Locati
         super.onRestoreInstanceState (savedInstanceState);
 
         _Task.setCount (savedInstanceState.getInt ("countdown"));
+        _Done = savedInstanceState.getBoolean ("done", false);
     }
 
     @Override
@@ -95,6 +97,7 @@ public class PanicActivity extends Activity implements ServiceConnection, Locati
         super.onSaveInstanceState (outState);
 
         outState.putInt ("countdown", _Task.getCount ());
+        outState.putBoolean ("done", _Done);
     }
 
     @Override
@@ -123,11 +126,11 @@ public class PanicActivity extends Activity implements ServiceConnection, Locati
         registerReceiver (_Delivered, new IntentFilter (TAG_DELIVERED));
 
         int id = 001;
-        // get an instance of the NotificationManager service
         NotificationManager manager = (NotificationManager) (getSystemService (NOTIFICATION_SERVICE));
         manager.cancel (id);
 
-        _Timer.schedule (_Task, 25, 1000);
+        if (!_Done)
+            _Timer.schedule (_Task, 25, 1000);
     }
 
     @Override
@@ -175,7 +178,7 @@ public class PanicActivity extends Activity implements ServiceConnection, Locati
 
         text = (TextView) (findViewById (R.id.messageText));
         text.setText (location + "\n" + address);
-        text.setTextColor (_Color);
+        text.setTextColor (_Done ? 0xff000000 : 0xffff0000);
     }
 
     //
@@ -244,7 +247,7 @@ public class PanicActivity extends Activity implements ServiceConnection, Locati
 
         TextView text = (TextView) (findViewById (R.id.messageText));
         text.setText (full_message);
-        text.setTextColor (_Color);
+        text.setTextColor (_Done ? 0xff000000 : 0xffff0000);
 
         if (interactive)
         {
@@ -298,6 +301,6 @@ public class PanicActivity extends Activity implements ServiceConnection, Locati
 
         ImageButton button = (ImageButton) (findViewById (R.id.panic_button));
         button.setImageResource (R.drawable.dontpanic);
-        _Color = 0xff000000;
+        _Done = true;
     }
 }

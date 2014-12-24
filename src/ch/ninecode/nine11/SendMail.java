@@ -40,7 +40,7 @@ public class SendMail extends AsyncTask<SendMail.Details, Void, Void>
 	{
 		try
 		{
-			GMailSender sender = new GMailSender (details[0]._Host, details[0]._Sender, details[0]._Password);
+			MailSender sender = new MailSender (details[0]._Host, details[0]._Sender, details[0]._Password);
 			sender.sendMail (details[0]._Subject, details[0]._Message, details[0]._Sender, details[0]._Recipient);
 		}
 		catch (Exception e)
